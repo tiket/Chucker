@@ -20,6 +20,7 @@ import com.chucker.logging.databinding.ChuckerActivityLoggingBinding
 import com.chucker.logging.internal.support.shareAsFile
 import com.chucker.logging.internal.support.shareAsUtf8Text
 import com.chucker.logging.internal.support.showDialog
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 internal class LoggingActivity : AppCompatActivity() {
@@ -29,8 +30,9 @@ internal class LoggingActivity : AppCompatActivity() {
     }
 
     private val viewModel: LoggingViewModel by viewModels()
-    private val loggingAdapter: LoggingAdapter by lazy {
-        LoggingAdapter(::copyLog)
+
+    private val loggingAdapter: LoggingPagingAdapter by lazy {
+        LoggingPagingAdapter(::copyLog)
     }
     private val spinnerAdapter by lazy { ArrayAdapter<String>(this, R.layout.chucker_item_tag) }
 
@@ -62,8 +64,10 @@ internal class LoggingActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.logDatas.observe(this) {
-            loggingAdapter.submitList(it)
+        lifecycleScope.launch {
+            viewModel.pagingLogDatas.collectLatest {
+                loggingAdapter.submitData(it)
+            }
         }
 
         viewModel.allTagLiveData.observe(this) {

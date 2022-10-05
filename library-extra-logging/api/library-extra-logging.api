@@ -76,8 +76,11 @@ public final class com/chucker/logging/internal/data/room/LoggingDao_Impl : com/
 	public fun <init> (Landroidx/room/RoomDatabase;)V
 	public fun deleteAll (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getAllLiveData ()Ljava/util/List;
+	public fun getAllLiveDataPaging ()Landroidx/paging/PagingSource;
 	public fun getFiltered (Ljava/lang/String;)Ljava/util/List;
+	public fun getFilteredPaging (Ljava/lang/String;)Landroidx/paging/PagingSource;
 	public fun getFilteredWithTag (Ljava/lang/String;Ljava/lang/String;)Ljava/util/List;
+	public fun getFilteredWithTagPaging (Ljava/lang/String;Ljava/lang/String;)Landroidx/paging/PagingSource;
 	public static fun getRequiredConverters ()Ljava/util/List;
 	public fun getTags (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun insert (Lcom/chucker/logging/internal/data/entity/LogData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
