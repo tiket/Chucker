@@ -47,6 +47,26 @@ public final class com/chucker/featureflag/api/store/PersistentFeatureFlagStore 
 	public fun set (Ljava/lang/String;Z)V
 }
 
+public final class com/chucker/featureflag/databinding/ChuckerActivityFeatureFlagBinding : androidx/viewbinding/ViewBinding {
+	public final field appBarLayout Lcom/google/android/material/appbar/AppBarLayout;
+	public final field recyclerView Landroidx/recyclerview/widget/RecyclerView;
+	public final field toolbar Lcom/google/android/material/appbar/MaterialToolbar;
+	public static fun bind (Landroid/view/View;)Lcom/chucker/featureflag/databinding/ChuckerActivityFeatureFlagBinding;
+	public synthetic fun getRoot ()Landroid/view/View;
+	public fun getRoot ()Landroidx/constraintlayout/widget/ConstraintLayout;
+	public static fun inflate (Landroid/view/LayoutInflater;)Lcom/chucker/featureflag/databinding/ChuckerActivityFeatureFlagBinding;
+	public static fun inflate (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Z)Lcom/chucker/featureflag/databinding/ChuckerActivityFeatureFlagBinding;
+}
+
+public final class com/chucker/featureflag/databinding/ChuckerListItemFeatureFlagBinding : androidx/viewbinding/ViewBinding {
+	public final field itemSwitch Landroidx/appcompat/widget/SwitchCompat;
+	public static fun bind (Landroid/view/View;)Lcom/chucker/featureflag/databinding/ChuckerListItemFeatureFlagBinding;
+	public synthetic fun getRoot ()Landroid/view/View;
+	public fun getRoot ()Landroidx/appcompat/widget/SwitchCompat;
+	public static fun inflate (Landroid/view/LayoutInflater;)Lcom/chucker/featureflag/databinding/ChuckerListItemFeatureFlagBinding;
+	public static fun inflate (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Z)Lcom/chucker/featureflag/databinding/ChuckerListItemFeatureFlagBinding;
+}
+
 public final class com/chucker/featureflag/internal/ui/FeatureFlagViewModel : androidx/lifecycle/ViewModel {
 	public fun <init> ()V
 	public final fun getFeatureFlags ()Landroidx/lifecycle/MutableLiveData;
