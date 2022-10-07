@@ -51,6 +51,8 @@ public class ChuckerInterceptor private constructor(
         public fun addBodyDecoder(decoder: Any): Builder = this
 
         public fun createShortcut(enable: Boolean): Builder = this
+        
+        public fun addBlacklistUrls(blackListUrls: Set<String>): Builder = this
 
         public fun build(): ChuckerInterceptor = ChuckerInterceptor(this, emptySet())
     }

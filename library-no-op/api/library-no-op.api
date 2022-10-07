@@ -30,6 +30,7 @@ public final class com/chuckerteam/chucker/api/ChuckerInterceptor : okhttp3/Inte
 
 public final class com/chuckerteam/chucker/api/ChuckerInterceptor$Builder {
 	public fun <init> (Landroid/content/Context;)V
+	public final fun addBlacklistUrls (Ljava/util/Set;)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun addBodyDecoder (Ljava/lang/Object;)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun alwaysReadResponseBody (Z)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun build ()Lcom/chuckerteam/chucker/api/ChuckerInterceptor;
