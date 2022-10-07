@@ -1,6 +1,6 @@
 public final class com/chucker/activity/api/ActivityInfoModule : com/chuckerteam/chucker/api/extramodule/ChuckerExtraModule {
-	public fun <init> (Landroid/app/Application;Z)V
-	public synthetic fun <init> (Landroid/app/Application;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Landroid/app/Application;ZLkotlin/jvm/functions/Function1;)V
+	public synthetic fun <init> (Landroid/app/Application;ZLkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getModuleName ()Ljava/lang/String;
 	public fun onNavigateToModule (Landroid/content/Context;)V
 }
@@ -40,7 +40,8 @@ public final class com/chucker/activity/internal/ActivityInfoActivity$Companion 
 }
 
 public final class com/chucker/activity/internal/ActivityTrackerCallback : android/app/Application$ActivityLifecycleCallbacks {
-	public fun <init> (Landroid/app/Application;Lcom/chucker/activity/internal/NotificationHelper;)V
+	public fun <init> (Landroid/app/Application;Lcom/chucker/activity/internal/NotificationHelper;Lkotlin/jvm/functions/Function1;)V
+	public synthetic fun <init> (Landroid/app/Application;Lcom/chucker/activity/internal/NotificationHelper;Lkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getCurrentInfo ()Lcom/chucker/activity/internal/ActivityInfo;
 	public fun onActivityCreated (Landroid/app/Activity;Landroid/os/Bundle;)V
 	public fun onActivityDestroyed (Landroid/app/Activity;)V

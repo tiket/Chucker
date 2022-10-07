@@ -33,7 +33,13 @@ class DebugSampleApp : Application() {
             )
         )
 
-        ChuckerExtraModuleRegistry.addExtraModule(ActivityInfoModule(this))
+        ChuckerExtraModuleRegistry.addExtraModule(ActivityInfoModule(this, additionalInfo = {
+            if (it.componentName.className.contains("log")) {
+                mapOf("test" to "blabla")
+            } else {
+                null
+            }
+        }))
         ChuckerExtraModuleRegistry.addExtraModule(LoggingModule(this))
     }
 }
