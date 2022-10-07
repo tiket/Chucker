@@ -54,6 +54,8 @@ android {
         disable 'AcceptsUserCertificates'
         // Don't fail build if some dependencies outdated
         disable 'GradleDependency'
+        disable 'PrivateResource'
+        disable 'UnusedResources'
     }
 
     compileOptions {

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.chucker.featureflag.api.ManagedFeatureFlag
-import com.chuckerteam.chucker.databinding.ChuckerListItemFeatureFlagBinding
+import com.chucker.featureflag.databinding.ChuckerListItemFeatureFlagBinding
 
 internal class FeatureFlagAdapter :
     ListAdapter<ManagedFeatureFlag, FeatureFlagAdapter.FeatureFlagViewHolder>(

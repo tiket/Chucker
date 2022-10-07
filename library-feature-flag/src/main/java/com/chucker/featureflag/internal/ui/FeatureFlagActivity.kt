@@ -7,8 +7,9 @@ import android.view.Menu
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import com.chuckerteam.chucker.R
-import com.chuckerteam.chucker.databinding.ChuckerActivityFeatureFlagBinding
+import com.chucker.featureflag.R
+import com.chucker.featureflag.databinding.ChuckerActivityFeatureFlagBinding
+import com.chuckerteam.chucker.R as RChucker
 
 internal class FeatureFlagActivity : AppCompatActivity() {
 
@@ -41,7 +42,7 @@ internal class FeatureFlagActivity : AppCompatActivity() {
     private fun setUpSearch(menu: Menu?) {
         checkNotNull(menu)
 
-        val searchMenuItem = menu.findItem(R.id.search)
+        val searchMenuItem = menu.findItem(RChucker.id.search)
         val searchView = searchMenuItem.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean = true
