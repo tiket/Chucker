@@ -14,6 +14,13 @@ public final class com/chuckerteam/chucker/api/Chucker {
 	public final fun setLogger$com_github_ChuckerTeam_Chucker_library (Lcom/chuckerteam/chucker/internal/support/Logger;)V
 }
 
+public final class com/chuckerteam/chucker/api/Chucker$logger$1 : com/chuckerteam/chucker/internal/support/Logger {
+	public fun error (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public final fun getTAG ()Ljava/lang/String;
+	public fun info (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public fun warn (Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+
 public final class com/chuckerteam/chucker/api/ChuckerCollector {
 	public fun <init> (Landroid/content/Context;)V
 	public fun <init> (Landroid/content/Context;Z)V
