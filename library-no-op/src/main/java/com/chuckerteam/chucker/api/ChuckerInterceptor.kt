@@ -11,12 +11,18 @@ import java.io.IOException
 @Suppress("UnusedPrivateMember")
 public class ChuckerInterceptor private constructor(
     builder: Builder,
+    private val blackListUrls: Set<String>
 ) : Interceptor {
 
     /**
      * No-op implementation.
      */
-    public constructor(context: Context) : this(Builder(context))
+    public constructor(context: Context) : this(Builder(context), emptySet())
+
+    public constructor(context: Context, blackListUrls: Set<String>) : this(
+        Builder(context),
+        blackListUrls
+    )
 
     public fun redactHeaders(vararg names: String): ChuckerInterceptor {
         return this
@@ -46,6 +52,6 @@ public class ChuckerInterceptor private constructor(
 
         public fun createShortcut(enable: Boolean): Builder = this
 
-        public fun build(): ChuckerInterceptor = ChuckerInterceptor(this)
+        public fun build(): ChuckerInterceptor = ChuckerInterceptor(this, emptySet())
     }
 }

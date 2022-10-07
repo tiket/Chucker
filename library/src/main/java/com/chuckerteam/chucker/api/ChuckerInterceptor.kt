@@ -17,6 +17,7 @@ import java.io.IOException
  */
 public class ChuckerInterceptor private constructor(
     builder: Builder,
+    private val blackListUrls: Set<String>
 ) : Interceptor {
 
     /**
@@ -28,7 +29,9 @@ public class ChuckerInterceptor private constructor(
      * @param context An Android [Context]
      * @see ChuckerInterceptor.Builder
      */
-    public constructor(context: Context) : this(Builder(context))
+    public constructor(context: Context) : this(Builder(context), emptySet())
+
+    public constructor(context: Context, blackListUrls: Set<String>) : this(Builder(context), blackListUrls)
 
     private val headersToRedact = builder.headersToRedact.toMutableSet()
 
@@ -69,6 +72,11 @@ public class ChuckerInterceptor private constructor(
         val transaction = HttpTransaction()
         val request = chain.request()
 
+        val hasBlackList = blackListUrls.firstOrNull {
+            chain.request().url.encodedPath.contains(it)
+        }
+        if (hasBlackList != null) return chain.proceed(request)
+
         requestProcessor.process(request, transaction)
 
         val response = try {
@@ -95,6 +103,7 @@ public class ChuckerInterceptor private constructor(
         internal var headersToRedact = emptySet<String>()
         internal var decoders = emptyList<BodyDecoder>()
         internal var createShortcut = true
+        internal var blackListUrls = emptySet<String>()
 
         /**
          * Sets the [ChuckerCollector] to customize data retention.
@@ -156,6 +165,14 @@ public class ChuckerInterceptor private constructor(
         }
 
         /**
+         * If set to `true`, [ChuckerInterceptor] will create a shortcut for your app
+         * to access list of transaction in Chucker.
+         */
+        public fun addBlacklistUrls(blackListUrls: Set<String>): Builder = apply {
+            this.blackListUrls = blackListUrls
+        }
+
+        /**
          * Sets provider of a directory where Chucker will save temporary responses
          * before processing them.
          */
@@ -167,7 +184,7 @@ public class ChuckerInterceptor private constructor(
         /**
          * Creates a new [ChuckerInterceptor] instance with values defined in this builder.
          */
-        public fun build(): ChuckerInterceptor = ChuckerInterceptor(this)
+        public fun build(): ChuckerInterceptor = ChuckerInterceptor(this, blackListUrls)
     }
 
     private companion object {

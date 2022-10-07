@@ -28,6 +28,7 @@ fun createOkHttpClient(
         .redactHeaders(emptySet())
         .alwaysReadResponseBody(false)
         .addBodyDecoder(PokemonProtoBodyDecoder())
+        .addBlacklistUrls(setOf("post"))
         .build()
 
     val cache = Cache(
