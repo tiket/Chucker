@@ -34,13 +34,15 @@ public final class com/chuckerteam/chucker/api/ChuckerCollector {
 
 public final class com/chuckerteam/chucker/api/ChuckerInterceptor : okhttp3/Interceptor {
 	public fun <init> (Landroid/content/Context;)V
-	public synthetic fun <init> (Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Landroid/content/Context;Ljava/util/Set;)V
+	public synthetic fun <init> (Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;Ljava/util/Set;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun intercept (Lokhttp3/Interceptor$Chain;)Lokhttp3/Response;
 	public final fun redactHeader ([Ljava/lang/String;)V
 }
 
 public final class com/chuckerteam/chucker/api/ChuckerInterceptor$Builder {
 	public fun <init> (Landroid/content/Context;)V
+	public final fun addBlacklistUrls (Ljava/util/Set;)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun addBodyDecoder (Lcom/chuckerteam/chucker/api/BodyDecoder;)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun alwaysReadResponseBody (Z)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun build ()Lcom/chuckerteam/chucker/api/ChuckerInterceptor;
@@ -48,6 +50,7 @@ public final class com/chuckerteam/chucker/api/ChuckerInterceptor$Builder {
 	public final fun collector (Lcom/chuckerteam/chucker/api/ChuckerCollector;)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun createShortcut (Z)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun getAlwaysReadResponseBody$com_github_ChuckerTeam_Chucker_library ()Z
+	public final fun getBlackListUrls$com_github_ChuckerTeam_Chucker_library ()Ljava/util/Set;
 	public final fun getCacheDirectoryProvider$com_github_ChuckerTeam_Chucker_library ()Lcom/chuckerteam/chucker/internal/support/CacheDirectoryProvider;
 	public final fun getCollector$com_github_ChuckerTeam_Chucker_library ()Lcom/chuckerteam/chucker/api/ChuckerCollector;
 	public final fun getContext$com_github_ChuckerTeam_Chucker_library ()Landroid/content/Context;
@@ -59,6 +62,7 @@ public final class com/chuckerteam/chucker/api/ChuckerInterceptor$Builder {
 	public final fun redactHeaders (Ljava/lang/Iterable;)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun redactHeaders ([Ljava/lang/String;)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun setAlwaysReadResponseBody$com_github_ChuckerTeam_Chucker_library (Z)V
+	public final fun setBlackListUrls$com_github_ChuckerTeam_Chucker_library (Ljava/util/Set;)V
 	public final fun setCacheDirectoryProvider$com_github_ChuckerTeam_Chucker_library (Lcom/chuckerteam/chucker/internal/support/CacheDirectoryProvider;)V
 	public final fun setCollector$com_github_ChuckerTeam_Chucker_library (Lcom/chuckerteam/chucker/api/ChuckerCollector;)V
 	public final fun setContext$com_github_ChuckerTeam_Chucker_library (Landroid/content/Context;)V
