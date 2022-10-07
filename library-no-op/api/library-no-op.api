@@ -22,7 +22,8 @@ public final class com/chuckerteam/chucker/api/ChuckerCollector {
 
 public final class com/chuckerteam/chucker/api/ChuckerInterceptor : okhttp3/Interceptor {
 	public fun <init> (Landroid/content/Context;)V
-	public synthetic fun <init> (Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Landroid/content/Context;Ljava/util/Set;)V
+	public synthetic fun <init> (Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;Ljava/util/Set;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun intercept (Lokhttp3/Interceptor$Chain;)Lokhttp3/Response;
 	public final fun redactHeaders ([Ljava/lang/String;)Lcom/chuckerteam/chucker/api/ChuckerInterceptor;
 }
