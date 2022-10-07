@@ -1,6 +1,9 @@
 package com.chucker.logging.internal.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import com.chucker.logging.internal.data.entity.LogData
+import com.chucker.logging.internal.data.paging.QueryType
 import com.chucker.logging.internal.data.room.LoggingDatabase
 
 internal class LoggingRepositoryImpl(
@@ -28,5 +31,19 @@ internal class LoggingRepositoryImpl(
 
     override suspend fun getAllTag(): List<String> {
         return database.loggingDao().getTags()
+    }
+
+    override fun getPagerLog(queryType: QueryType): Pager<Int, LogData> {
+        return Pager(PagingConfig(20)) {
+            when (queryType) {
+                is QueryType.Query -> database.loggingDao()
+                    .getFilteredPaging("%${queryType.query}%")
+                is QueryType.QueryWithTag -> database.loggingDao().getFilteredWithTagPaging(
+                    queryType.tag,
+                    "%${queryType.query}%"
+                )
+                else -> database.loggingDao().getAllLiveDataPaging()
+            }
+        }
     }
 }

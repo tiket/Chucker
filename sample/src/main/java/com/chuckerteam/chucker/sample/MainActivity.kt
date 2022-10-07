@@ -136,7 +136,9 @@ class MainActivity : AppCompatActivity() {
                     val key = iterator.next()
                     map[key] = bundle.get(key)
                 }
-                LoggingCollectorImpl().sendLog("tracker", map)
+                repeat(10000) {
+                    LoggingCollectorImpl().sendLog("tracker", map)
+                }
             }
         }
 
@@ -144,7 +146,7 @@ class MainActivity : AppCompatActivity() {
             StrictMode.VmPolicy.Builder()
                 .detectLeakedClosableObjects()
                 .penaltyLog()
-                .penaltyDeath()
+//                .penaltyDeath()
                 .build()
         )
     }

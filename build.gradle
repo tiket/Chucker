@@ -16,6 +16,7 @@ buildscript {
         lifecycleVersion = '2.3.1'
         androidXCoreVersion = '2.1.0'
         paletteKtxVersion = '1.0.0'
+        pagingVersion = '3.1.1'
 
         // Networking
         gsonVersion = '2.8.7'
