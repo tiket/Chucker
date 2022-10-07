@@ -9,8 +9,9 @@ import com.chucker.activity.api.ActivityInfoProvider
 import com.chuckerteam.chucker.api.Chucker
 
 internal class ActivityTrackerCallback(
-        app: Application,
-        private val notificationHelper: NotificationHelper?
+    app: Application,
+    private val notificationHelper: NotificationHelper?,
+    private val additionalInfo: ((Activity) -> Map<String, String>?)? = null
 ) : Application.ActivityLifecycleCallbacks {
 
     var currentInfo: ActivityInfo? = null
@@ -68,14 +69,16 @@ internal class ActivityTrackerCallback(
             activity.getOtherInfo()
         } else {
             emptyMap()
+        }.let {
+            it + additionalInfo?.invoke(this@getActivityInfo).orEmpty()
         }
 
         return ActivityInfo(
-                simpleName = activity.getActivitySimpleName(),
-                packageName = activity.packageName,
-                callingActivity = activity.callingActivity?.className ?: "",
-                fragments = fragments,
-                otherInfo = otherInfo
+            simpleName = activity.getActivitySimpleName(),
+            packageName = activity.packageName,
+            callingActivity = activity.callingActivity?.className ?: "",
+            fragments = fragments,
+            otherInfo = otherInfo
         )
     }
 
