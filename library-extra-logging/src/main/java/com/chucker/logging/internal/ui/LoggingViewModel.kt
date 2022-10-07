@@ -3,15 +3,12 @@ package com.chucker.logging.internal.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
-import androidx.paging.map
-import com.chucker.logging.internal.data.paging.QueryType
+import com.chucker.logging.internal.data.entity.LogData
 import com.chucker.logging.internal.data.repository.LoggingRepositoryProvider
 import com.chucker.logging.internal.support.formatDate
 import com.chucker.logging.internal.support.formatLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -24,36 +21,6 @@ internal class LoggingViewModel : ViewModel() {
     val logDatas = MutableLiveData(emptyList<LogViewParam>())
     private var jobSearch: Job? = null
 
-    private var currentFilterFlow = MutableStateFlow("")
-    private var currentSelectedTagFlow = MutableStateFlow("")
-    val pagingLogDatas by lazy {
-        currentFilterFlow.combine(currentSelectedTagFlow) { f1, f2 -> f1 to f2 }.map {
-            when {
-                currentFilter.isBlank() && currentSelectedTag.isBlank() -> {
-                    QueryType.Default
-                }
-                else -> {
-                    if (currentSelectedTag.isBlank()) {
-                        QueryType.Query(it.first)
-                    } else {
-                        QueryType.QueryWithTag(it.first, it.second)
-                    }
-                }
-            }
-        }.flatMapLatest { queryType ->
-            LoggingRepositoryProvider.get().getPagerLog(queryType).flow.map { pagingData ->
-                pagingData.map {
-                    LogViewParam(
-                        tag = it.tag,
-                        logText = it.logString.formatLog(),
-                        dateText = it.timeStamp.formatDate(),
-                        queryText = currentFilter
-                    )
-                }
-            }
-        }.cachedIn(viewModelScope)
-    }
-
     fun init() {
         doQuery()
         getAllTag()
@@ -61,15 +28,12 @@ internal class LoggingViewModel : ViewModel() {
 
     fun updateItemsFilter(searchQuery: String) {
         currentFilter = searchQuery
-        viewModelScope.launch(Dispatchers.IO) {
-            currentFilterFlow.emit(searchQuery)
-        }
+        doQuery()
     }
 
     private fun getAllTag() {
         viewModelScope.launch {
-            allTagLiveData.value =
-                withContext(Dispatchers.IO) { LoggingRepositoryProvider.get().getAllTag() }
+            allTagLiveData.value = withContext(Dispatchers.IO) { LoggingRepositoryProvider.get().getAllTag() }
         }
     }
 
@@ -78,15 +42,13 @@ internal class LoggingViewModel : ViewModel() {
             ""
         } else selectedTag
         currentSelectedTag = tmpSelectedTag
-        viewModelScope.launch(Dispatchers.IO) {
-            currentSelectedTagFlow.emit(selectedTag)
-        }
+        doQuery()
     }
 
     fun clearLog() {
         viewModelScope.launch {
             LoggingRepositoryProvider.get().deleteAllLog()
-            currentFilterFlow.emit(currentFilterFlow.value)
+            doQuery()
         }
     }
 
@@ -106,9 +68,7 @@ internal class LoggingViewModel : ViewModel() {
                 }
             }.map {
                 LogViewParam(
-                    tag = it.tag,
-                    logText = it.logString.formatLog(),
-                    dateText = it.timeStamp.formatDate()
+                    tag = it.tag, logText = it.logString.formatLog(), dateText = it.timeStamp.formatDate()
                 )
             }
 
