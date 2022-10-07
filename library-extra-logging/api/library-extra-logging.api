@@ -40,11 +40,43 @@ public final class com/chucker/logging/internal/data/entity/LogData {
 	public fun toString ()Ljava/lang/String;
 }
 
+public abstract class com/chucker/logging/internal/data/paging/QueryType {
+}
+
+public final class com/chucker/logging/internal/data/paging/QueryType$Default : com/chucker/logging/internal/data/paging/QueryType {
+	public static final field INSTANCE Lcom/chucker/logging/internal/data/paging/QueryType$Default;
+}
+
+public final class com/chucker/logging/internal/data/paging/QueryType$Query : com/chucker/logging/internal/data/paging/QueryType {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/chucker/logging/internal/data/paging/QueryType$Query;
+	public static synthetic fun copy$default (Lcom/chucker/logging/internal/data/paging/QueryType$Query;Ljava/lang/String;ILjava/lang/Object;)Lcom/chucker/logging/internal/data/paging/QueryType$Query;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getQuery ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/chucker/logging/internal/data/paging/QueryType$QueryWithTag : com/chucker/logging/internal/data/paging/QueryType {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/chucker/logging/internal/data/paging/QueryType$QueryWithTag;
+	public static synthetic fun copy$default (Lcom/chucker/logging/internal/data/paging/QueryType$QueryWithTag;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/chucker/logging/internal/data/paging/QueryType$QueryWithTag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getQuery ()Ljava/lang/String;
+	public final fun getTag ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public abstract interface class com/chucker/logging/internal/data/repository/LoggingRepository {
 	public abstract fun deleteAllLog (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getAllLogLiveData (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getAllTag (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getFilteredLog (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getPagerLog (Lcom/chucker/logging/internal/data/paging/QueryType;)Landroidx/paging/Pager;
 	public abstract fun insertLog (Lcom/chucker/logging/internal/data/entity/LogData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
@@ -54,6 +86,7 @@ public final class com/chucker/logging/internal/data/repository/LoggingRepositor
 	public fun getAllLogLiveData (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getAllTag (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getFilteredLog (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getPagerLog (Lcom/chucker/logging/internal/data/paging/QueryType;)Landroidx/paging/Pager;
 	public fun insertLog (Lcom/chucker/logging/internal/data/entity/LogData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
@@ -66,8 +99,11 @@ public final class com/chucker/logging/internal/data/repository/LoggingRepositor
 public abstract interface class com/chucker/logging/internal/data/room/LoggingDao {
 	public abstract fun deleteAll (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getAllLiveData ()Ljava/util/List;
+	public abstract fun getAllLiveDataPaging ()Landroidx/paging/PagingSource;
 	public abstract fun getFiltered (Ljava/lang/String;)Ljava/util/List;
+	public abstract fun getFilteredPaging (Ljava/lang/String;)Landroidx/paging/PagingSource;
 	public abstract fun getFilteredWithTag (Ljava/lang/String;Ljava/lang/String;)Ljava/util/List;
+	public abstract fun getFilteredWithTagPaging (Ljava/lang/String;Ljava/lang/String;)Landroidx/paging/PagingSource;
 	public abstract fun getTags (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun insert (Lcom/chucker/logging/internal/data/entity/LogData;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
@@ -112,6 +148,7 @@ public class com/chucker/logging/internal/support/BundleTypeAdapterFactory : com
 public final class com/chucker/logging/internal/support/ExtensionKt {
 	public static final fun formatDate (J)Ljava/lang/String;
 	public static final fun formatLog (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun makeHighlightFrom (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/CharSequence;
 	public static final fun showDialog (Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)V
 }
 
@@ -138,20 +175,23 @@ public final class com/chucker/logging/internal/ui/LogDataShareable : com/chucke
 
 public final class com/chucker/logging/internal/ui/LogViewParam {
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/chucker/logging/internal/ui/LogViewParam;
-	public static synthetic fun copy$default (Lcom/chucker/logging/internal/ui/LogViewParam;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/chucker/logging/internal/ui/LogViewParam;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/chucker/logging/internal/ui/LogViewParam;
+	public static synthetic fun copy$default (Lcom/chucker/logging/internal/ui/LogViewParam;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/chucker/logging/internal/ui/LogViewParam;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getDateText ()Ljava/lang/String;
 	public final fun getLogText ()Ljava/lang/String;
+	public final fun getQueryText ()Ljava/lang/String;
 	public final fun getTag ()Ljava/lang/String;
 	public fun hashCode ()I
 	public final fun setDateText (Ljava/lang/String;)V
 	public final fun setLogText (Ljava/lang/String;)V
+	public final fun setQueryText (Ljava/lang/String;)V
 	public final fun setTag (Ljava/lang/String;)V
 	public fun toString ()Ljava/lang/String;
 }
@@ -190,12 +230,36 @@ public final class com/chucker/logging/internal/ui/LoggingAdapter$ViewHolder : a
 	public final fun bind (Lcom/chucker/logging/internal/ui/LogViewParam;)V
 }
 
+public final class com/chucker/logging/internal/ui/LoggingPagingAdapter : androidx/paging/PagingDataAdapter {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public synthetic fun onBindViewHolder (Landroidx/recyclerview/widget/RecyclerView$ViewHolder;I)V
+	public fun onBindViewHolder (Lcom/chucker/logging/internal/ui/LoggingPagingAdapter$ViewHolder;I)V
+	public synthetic fun onCreateViewHolder (Landroid/view/ViewGroup;I)Landroidx/recyclerview/widget/RecyclerView$ViewHolder;
+	public fun onCreateViewHolder (Landroid/view/ViewGroup;I)Lcom/chucker/logging/internal/ui/LoggingPagingAdapter$ViewHolder;
+}
+
+public final class com/chucker/logging/internal/ui/LoggingPagingAdapter$DiffCallback : androidx/recyclerview/widget/DiffUtil$ItemCallback {
+	public static final field INSTANCE Lcom/chucker/logging/internal/ui/LoggingPagingAdapter$DiffCallback;
+	public fun areContentsTheSame (Lcom/chucker/logging/internal/ui/LogViewParam;Lcom/chucker/logging/internal/ui/LogViewParam;)Z
+	public synthetic fun areContentsTheSame (Ljava/lang/Object;Ljava/lang/Object;)Z
+	public fun areItemsTheSame (Lcom/chucker/logging/internal/ui/LogViewParam;Lcom/chucker/logging/internal/ui/LogViewParam;)Z
+	public synthetic fun areItemsTheSame (Ljava/lang/Object;Ljava/lang/Object;)Z
+	public fun getChangePayload (Lcom/chucker/logging/internal/ui/LogViewParam;Lcom/chucker/logging/internal/ui/LogViewParam;)V
+	public synthetic fun getChangePayload (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/chucker/logging/internal/ui/LoggingPagingAdapter$ViewHolder : androidx/recyclerview/widget/RecyclerView$ViewHolder {
+	public fun <init> (Lcom/chucker/logging/databinding/ChuckerItemLogBinding;Lkotlin/jvm/functions/Function1;)V
+	public final fun bind (Lcom/chucker/logging/internal/ui/LogViewParam;)V
+}
+
 public final class com/chucker/logging/internal/ui/LoggingViewModel : androidx/lifecycle/ViewModel {
 	public fun <init> ()V
 	public final fun clearLog ()V
 	public final fun doQuery ()V
 	public final fun getAllTagLiveData ()Landroidx/lifecycle/MutableLiveData;
 	public final fun getLogDatas ()Landroidx/lifecycle/MutableLiveData;
+	public final fun getPagingLogDatas ()Lkotlinx/coroutines/flow/Flow;
 	public final fun init ()V
 	public final fun updateItemsFilter (Ljava/lang/String;)V
 	public final fun updateTag (Ljava/lang/String;)V

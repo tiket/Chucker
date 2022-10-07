@@ -4,49 +4,39 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.chucker.logging.databinding.ChuckerItemLogBinding
-import com.chucker.logging.internal.data.entity.LogData
-import com.chucker.logging.internal.support.formatDate
-import com.chucker.logging.internal.support.formatLog
-import org.json.JSONObject
-import java.text.SimpleDateFormat
+import com.chucker.logging.internal.support.makeHighlightFrom
 
-internal class LoggingPagingAdapter(private val copyCallback: (LogViewParam) -> Unit) :
-    PagingDataAdapter<LogData, LoggingPagingAdapter.ViewHolder>(DiffCallback) {
+internal class LoggingPagingAdapter(
+    private val copyCallback: (LogViewParam) -> Unit
+) : PagingDataAdapter<LogViewParam, LoggingPagingAdapter.ViewHolder>(DiffCallback) {
 
     internal class ViewHolder(
         private val binding: ChuckerItemLogBinding,
         private val copyCallback: (LogViewParam) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(value: LogData) {
-            val logViewParam = LogViewParam(
-                tag = value.tag,
-                logText = value.logString.formatLog(),
-                dateText = value.timeStamp.formatDate()
-            )
-
-            binding.tag.text = logViewParam.tag
-            binding.message.text = logViewParam.logText
-            binding.timeStamp.text = logViewParam.dateText
+        fun bind(value: LogViewParam) {
+            binding.tag.text = value.tag
+            binding.message.text = value.logText.makeHighlightFrom(value.queryText)
+            binding.timeStamp.text = value.dateText
             binding.copyButton.setOnClickListener {
-                copyCallback.invoke(logViewParam)
+                copyCallback.invoke(value)
             }
         }
     }
 
-    internal object DiffCallback : DiffUtil.ItemCallback<LogData>() {
-        override fun areItemsTheSame(oldItem: LogData, newItem: LogData): Boolean {
+    internal object DiffCallback : DiffUtil.ItemCallback<LogViewParam>() {
+        override fun areItemsTheSame(oldItem: LogViewParam, newItem: LogViewParam): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: LogData, newItem: LogData): Boolean {
+        override fun areContentsTheSame(oldItem: LogViewParam, newItem: LogViewParam): Boolean {
             return oldItem == newItem
         }
 
         // Overriding function is empty on purpose to avoid flickering by default animator
-        override fun getChangePayload(oldItem: LogData, newItem: LogData) = Unit
+        override fun getChangePayload(oldItem: LogViewParam, newItem: LogViewParam) = Unit
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

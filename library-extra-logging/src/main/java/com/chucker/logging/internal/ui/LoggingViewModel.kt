@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.chucker.logging.internal.data.paging.QueryType
 import com.chucker.logging.internal.data.repository.LoggingRepositoryProvider
 import com.chucker.logging.internal.support.formatDate
@@ -39,8 +40,17 @@ internal class LoggingViewModel : ViewModel() {
                     }
                 }
             }
-        }.flatMapLatest {
-            LoggingRepositoryProvider.get().getPagerLog(it).flow
+        }.flatMapLatest { queryType ->
+            LoggingRepositoryProvider.get().getPagerLog(queryType).flow.map { pagingData ->
+                pagingData.map {
+                    LogViewParam(
+                        tag = it.tag,
+                        logText = it.logString.formatLog(),
+                        dateText = it.timeStamp.formatDate(),
+                        queryText = currentFilter
+                    )
+                }
+            }
         }.cachedIn(viewModelScope)
     }
 
