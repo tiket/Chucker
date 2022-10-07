@@ -1,7 +1,5 @@
 public final class com/chucker/featureflag/api/FeatureFlagModule : com/chuckerteam/chucker/api/extramodule/ChuckerExtraModule {
 	public static final field Companion Lcom/chucker/featureflag/api/FeatureFlagModule$Companion;
-	public static final field KEY_INITIALIZED Ljava/lang/String;
-	public static field store Lcom/chucker/featureflag/api/store/FeatureFlagStore;
 	public fun <init> (Lcom/chucker/featureflag/api/store/FeatureFlagStore;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public synthetic fun <init> (Lcom/chucker/featureflag/api/store/FeatureFlagStore;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getModuleName ()Ljava/lang/String;
@@ -9,8 +7,6 @@ public final class com/chucker/featureflag/api/FeatureFlagModule : com/chuckerte
 }
 
 public final class com/chucker/featureflag/api/FeatureFlagModule$Companion {
-	public final fun getStore$library_feature_flag_release ()Lcom/chucker/featureflag/api/store/FeatureFlagStore;
-	public final fun setStore$library_feature_flag_release (Lcom/chucker/featureflag/api/store/FeatureFlagStore;)V
 }
 
 public abstract interface class com/chucker/featureflag/api/ManagedFeatureFlag {
@@ -69,37 +65,6 @@ public final class com/chucker/featureflag/databinding/ChuckerListItemFeatureFla
 	public fun getRoot ()Landroidx/appcompat/widget/SwitchCompat;
 	public static fun inflate (Landroid/view/LayoutInflater;)Lcom/chucker/featureflag/databinding/ChuckerListItemFeatureFlagBinding;
 	public static fun inflate (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Z)Lcom/chucker/featureflag/databinding/ChuckerListItemFeatureFlagBinding;
-}
-
-public final class com/chucker/featureflag/internal/ui/FeatureFlagActivity : androidx/appcompat/app/AppCompatActivity {
-	public static final field Companion Lcom/chucker/featureflag/internal/ui/FeatureFlagActivity$Companion;
-	public fun <init> ()V
-	public fun onCreateOptionsMenu (Landroid/view/Menu;)Z
-}
-
-public final class com/chucker/featureflag/internal/ui/FeatureFlagActivity$Companion {
-	public final fun start (Landroid/content/Context;)V
-}
-
-public final class com/chucker/featureflag/internal/ui/FeatureFlagAdapter : androidx/recyclerview/widget/ListAdapter {
-	public fun <init> ()V
-	public synthetic fun onBindViewHolder (Landroidx/recyclerview/widget/RecyclerView$ViewHolder;I)V
-	public fun onBindViewHolder (Lcom/chucker/featureflag/internal/ui/FeatureFlagAdapter$FeatureFlagViewHolder;I)V
-	public synthetic fun onCreateViewHolder (Landroid/view/ViewGroup;I)Landroidx/recyclerview/widget/RecyclerView$ViewHolder;
-	public fun onCreateViewHolder (Landroid/view/ViewGroup;I)Lcom/chucker/featureflag/internal/ui/FeatureFlagAdapter$FeatureFlagViewHolder;
-}
-
-public final class com/chucker/featureflag/internal/ui/FeatureFlagAdapter$FeatureFlagViewHolder : androidx/recyclerview/widget/RecyclerView$ViewHolder {
-	public fun <init> (Lcom/chucker/featureflag/databinding/ChuckerListItemFeatureFlagBinding;)V
-	public final fun bind (Lcom/chucker/featureflag/api/ManagedFeatureFlag;)V
-}
-
-public final class com/chucker/featureflag/internal/ui/FeatureFlagDiffcallback : androidx/recyclerview/widget/DiffUtil$ItemCallback {
-	public static final field INSTANCE Lcom/chucker/featureflag/internal/ui/FeatureFlagDiffcallback;
-	public fun areContentsTheSame (Lcom/chucker/featureflag/api/ManagedFeatureFlag;Lcom/chucker/featureflag/api/ManagedFeatureFlag;)Z
-	public synthetic fun areContentsTheSame (Ljava/lang/Object;Ljava/lang/Object;)Z
-	public fun areItemsTheSame (Lcom/chucker/featureflag/api/ManagedFeatureFlag;Lcom/chucker/featureflag/api/ManagedFeatureFlag;)Z
-	public synthetic fun areItemsTheSame (Ljava/lang/Object;Ljava/lang/Object;)Z
 }
 
 public final class com/chucker/featureflag/internal/ui/FeatureFlagViewModel : androidx/lifecycle/ViewModel {
