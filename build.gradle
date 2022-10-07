@@ -11,7 +11,7 @@ buildscript {
         appCompatVersion = '1.3.1'
         constraintLayoutVersion = '2.0.4'
         materialComponentsVersion = '1.4.0'
-        roomVersion = '2.3.0'
+        roomVersion = '2.4.3'
         fragmentVersion = '1.3.6'
         lifecycleVersion = '2.3.1'
         androidXCoreVersion = '2.1.0'
@@ -50,7 +50,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$androidGradleVersion"
         classpath "de.mannodermaus.gradle.plugins:android-junit5:$junitGradlePluignVersion"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokkaVersion"
         classpath "org.jetbrains.kotlinx:binary-compatibility-validator:$binaryCompatibilityValidator"
         classpath "com.squareup.wire:wire-gradle-plugin:$wireVersion"
@@ -105,8 +105,8 @@ task clean(type: Delete) {
 
 ext {
     minSdkVersion = 21
-    targetSdkVersion = 30
-    compileSdkVersion = 30
+    targetSdkVersion = 31
+    compileSdkVersion = 31
 }
 
 nexusStaging {

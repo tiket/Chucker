@@ -5,10 +5,13 @@ public abstract interface class com/chuckerteam/chucker/api/BodyDecoder {
 
 public final class com/chuckerteam/chucker/api/Chucker {
 	public static final field INSTANCE Lcom/chuckerteam/chucker/api/Chucker;
+	public final fun createShortcut$com_github_ChuckerTeam_Chucker_library (Landroid/content/Context;)V
 	public static final fun dismissNotifications (Landroid/content/Context;)V
 	public static final fun getLaunchIntent (Landroid/content/Context;)Landroid/content/Intent;
+	public final fun getLogger$com_github_ChuckerTeam_Chucker_library ()Lcom/chuckerteam/chucker/internal/support/Logger;
 	public final fun isChuckerActivity (Landroid/app/Activity;)Z
 	public final fun isOp ()Z
+	public final fun setLogger$com_github_ChuckerTeam_Chucker_library (Lcom/chuckerteam/chucker/internal/support/Logger;)V
 }
 
 public final class com/chuckerteam/chucker/api/ChuckerCollector {
@@ -17,6 +20,8 @@ public final class com/chuckerteam/chucker/api/ChuckerCollector {
 	public fun <init> (Landroid/content/Context;ZLcom/chuckerteam/chucker/api/RetentionManager$Period;)V
 	public synthetic fun <init> (Landroid/content/Context;ZLcom/chuckerteam/chucker/api/RetentionManager$Period;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getShowNotification ()Z
+	public final fun onRequestSent$com_github_ChuckerTeam_Chucker_library (Lcom/chuckerteam/chucker/internal/data/entity/HttpTransaction;)V
+	public final fun onResponseReceived$com_github_ChuckerTeam_Chucker_library (Lcom/chuckerteam/chucker/internal/data/entity/HttpTransaction;)V
 	public final fun setShowNotification (Z)V
 }
 
@@ -32,17 +37,35 @@ public final class com/chuckerteam/chucker/api/ChuckerInterceptor$Builder {
 	public final fun addBodyDecoder (Lcom/chuckerteam/chucker/api/BodyDecoder;)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun alwaysReadResponseBody (Z)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun build ()Lcom/chuckerteam/chucker/api/ChuckerInterceptor;
+	public final fun cacheDirectorProvider$com_github_ChuckerTeam_Chucker_library (Lcom/chuckerteam/chucker/internal/support/CacheDirectoryProvider;)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun collector (Lcom/chuckerteam/chucker/api/ChuckerCollector;)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun createShortcut (Z)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
+	public final fun getAlwaysReadResponseBody$com_github_ChuckerTeam_Chucker_library ()Z
+	public final fun getCacheDirectoryProvider$com_github_ChuckerTeam_Chucker_library ()Lcom/chuckerteam/chucker/internal/support/CacheDirectoryProvider;
+	public final fun getCollector$com_github_ChuckerTeam_Chucker_library ()Lcom/chuckerteam/chucker/api/ChuckerCollector;
+	public final fun getContext$com_github_ChuckerTeam_Chucker_library ()Landroid/content/Context;
+	public final fun getCreateShortcut$com_github_ChuckerTeam_Chucker_library ()Z
+	public final fun getDecoders$com_github_ChuckerTeam_Chucker_library ()Ljava/util/List;
+	public final fun getHeadersToRedact$com_github_ChuckerTeam_Chucker_library ()Ljava/util/Set;
+	public final fun getMaxContentLength$com_github_ChuckerTeam_Chucker_library ()J
 	public final fun maxContentLength (J)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun redactHeaders (Ljava/lang/Iterable;)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
 	public final fun redactHeaders ([Ljava/lang/String;)Lcom/chuckerteam/chucker/api/ChuckerInterceptor$Builder;
+	public final fun setAlwaysReadResponseBody$com_github_ChuckerTeam_Chucker_library (Z)V
+	public final fun setCacheDirectoryProvider$com_github_ChuckerTeam_Chucker_library (Lcom/chuckerteam/chucker/internal/support/CacheDirectoryProvider;)V
+	public final fun setCollector$com_github_ChuckerTeam_Chucker_library (Lcom/chuckerteam/chucker/api/ChuckerCollector;)V
+	public final fun setContext$com_github_ChuckerTeam_Chucker_library (Landroid/content/Context;)V
+	public final fun setCreateShortcut$com_github_ChuckerTeam_Chucker_library (Z)V
+	public final fun setDecoders$com_github_ChuckerTeam_Chucker_library (Ljava/util/List;)V
+	public final fun setHeadersToRedact$com_github_ChuckerTeam_Chucker_library (Ljava/util/Set;)V
+	public final fun setMaxContentLength$com_github_ChuckerTeam_Chucker_library (J)V
 }
 
 public final class com/chuckerteam/chucker/api/RetentionManager {
 	public fun <init> (Landroid/content/Context;)V
 	public fun <init> (Landroid/content/Context;Lcom/chuckerteam/chucker/api/RetentionManager$Period;)V
 	public synthetic fun <init> (Landroid/content/Context;Lcom/chuckerteam/chucker/api/RetentionManager$Period;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun doMaintenance$com_github_ChuckerTeam_Chucker_library (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/chuckerteam/chucker/api/RetentionManager$Period : java/lang/Enum {
@@ -62,5 +85,6 @@ public abstract interface class com/chuckerteam/chucker/api/extramodule/ChuckerE
 public final class com/chuckerteam/chucker/api/extramodule/ChuckerExtraModuleRegistry {
 	public static final field INSTANCE Lcom/chuckerteam/chucker/api/extramodule/ChuckerExtraModuleRegistry;
 	public final fun addExtraModule (Lcom/chuckerteam/chucker/api/extramodule/ChuckerExtraModule;)V
+	public final fun getExtraModules$com_github_ChuckerTeam_Chucker_library ()Ljava/util/List;
 }
 
